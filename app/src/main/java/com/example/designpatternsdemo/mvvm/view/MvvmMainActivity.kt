@@ -1,40 +1,41 @@
-package com.example.designpatternsdemo.mvc.view
+package com.example.designpatternsdemo.mvvm.view
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.designpatternsdemo.R
 import com.example.designpatternsdemo.core.adapter.ProductListAdapter
-import com.example.designpatternsdemo.databinding.ActivityMvcMainBinding
-import com.example.designpatternsdemo.mvc.controller.MvcController
+import com.example.designpatternsdemo.databinding.ActivityMvpMainBinding
+import com.example.designpatternsdemo.databinding.ActivityMvvmMainBinding
+import com.example.designpatternsdemo.mvvm.view_model.MvvmViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 @AndroidEntryPoint
-class MvcMainActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityMvcMainBinding
+class MvvmMainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMvvmMainBinding
 
     private lateinit var productListAdapter: ProductListAdapter
 
     @Inject
-    lateinit var mvcController: MvcController
+    lateinit var mvvmViewModel: MvvmViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityMvcMainBinding.inflate(layoutInflater)
+        binding = ActivityMvvmMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         initActivityViews()
-        lifecycleScope.launch {
-            val productList = mvcController.getProducts()
+        mvvmViewModel.productsList.observe(
+            this@MvvmMainActivity,
+        ) {
             binding.progressIndicator.visibility = View.GONE
-            productList?.let {
-                productListAdapter.updateProducts(it)
-            }
+            productListAdapter.updateProducts(it)
         }
+        mvvmViewModel.getProducts()
     }
 
     private fun initActivityViews() {
@@ -44,10 +45,10 @@ class MvcMainActivity : AppCompatActivity() {
         }
         productListAdapter =
             ProductListAdapter(
-                this@MvcMainActivity,
+                this@MvvmMainActivity,
                 ArrayList()
             )
-        binding.productList.layoutManager = LinearLayoutManager(this@MvcMainActivity)
+        binding.productList.layoutManager = LinearLayoutManager(this@MvvmMainActivity)
         binding.productList.adapter = productListAdapter
     }
 }

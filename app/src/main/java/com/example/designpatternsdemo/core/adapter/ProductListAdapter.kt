@@ -1,4 +1,4 @@
-package com.example.designpatternsdemo.mvc.view
+package com.example.designpatternsdemo.core.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context

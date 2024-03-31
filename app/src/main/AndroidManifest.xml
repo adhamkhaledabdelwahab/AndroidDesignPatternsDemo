@@ -19,6 +19,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".mvi.view.MviMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mvvm.view.MvvmMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".mvp.view.MvpMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".mvc.view.MvcMainActivity"
             android:exported="false" />
         <activity

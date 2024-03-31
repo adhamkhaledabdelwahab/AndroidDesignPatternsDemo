@@ -7,6 +7,9 @@ import android.view.View.OnClickListener
 import androidx.appcompat.app.AppCompatActivity
 import com.example.designpatternsdemo.databinding.ActivityMainBinding
 import com.example.designpatternsdemo.mvc.view.MvcMainActivity
+import com.example.designpatternsdemo.mvi.view.MviMainActivity
+import com.example.designpatternsdemo.mvp.view.MvpMainActivity
+import com.example.designpatternsdemo.mvvm.view.MvvmMainActivity
 
 class MainActivity : AppCompatActivity(), OnClickListener {
     private lateinit var binding: ActivityMainBinding
@@ -25,9 +28,9 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             binding.mvc.id -> gotoNewActivity(MvcMainActivity::class.java)
-//            binding.mvp.id -> gotoNewActivity(MvpMainActivity::class.java)
-//            binding.mvvm.id -> gotoNewActivity(MvvmMainActivity::class.java)
-//            binding.mvi.id -> gotoNewActivity(MviMainActivity::class.java)
+            binding.mvp.id -> gotoNewActivity(MvpMainActivity::class.java)
+            binding.mvvm.id -> gotoNewActivity(MvvmMainActivity::class.java)
+            binding.mvi.id -> gotoNewActivity(MviMainActivity::class.java)
         }
     }
 
